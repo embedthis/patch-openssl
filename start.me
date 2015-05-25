@@ -33,8 +33,8 @@ Me.load({
                 } else {
                     sh('chmod +x Configure config; touch Makefile')
                     if (Config.OS == 'macosx') {
-                        sh('./Configure darwin64-x86_64-cc; make -j4')
-                        // sh('./Configure debug-darwin64-x86_64-cc; make -j4')
+                        /* Dont use -j4 - fails. Use debug-darwin-x86-64-cc for a debug build */
+                        sh('./Configure darwin64-x86_64-cc; make')
                     } else {
                         sh('./config ; make')
                     }
