@@ -34,10 +34,9 @@ Me.load({
                     sh('chmod +x Configure config; touch Makefile')
                     if (Config.OS == 'macosx') {
                         sh('./Configure darwin64-x86_64-cc; make -j4')
-                    } else if (Cmd.locate('execstack')) {
-                        sh('./config shared ; make ; execstack -c *.so')
+                        // sh('./Configure debug-darwin64-x86_64-cc; make -j4')
                     } else {
-                        sh('./config shared ; make')
+                        sh('./config ; make')
                     }
                 }
             `
