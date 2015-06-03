@@ -28,7 +28,8 @@ Me.load({
                     }
                     cmd('perl Configure ' + config)
                     cmd(script)
-                    cmd('nmake -f ms/ntdll.mak')
+                    cmd('nmake -f ms/nt.mak')
+                    // cmd('nmake -f ms/ntdll.mak')
 
                 } else {
                     sh('chmod +x Configure config; touch Makefile')
