@@ -33,12 +33,12 @@ Me.load({
                     sh('chmod +x Configure config; touch Makefile')
                     if (Config.OS == 'macosx') {
                         /* Dont use -j4 - fails. Use debug-darwin-x86-64-cc for a debug build */
-                        sh('./Configure darwin64-x86_64-cc; make')
+                        sh('./Configure --shared darwin64-x86_64-cc; make')
                     } else if (Config.OS == 'linux' && Config.CPU == 'x64') {
                         /* Archive libraries must still be position independant */
-                        sh('./config -fPIC -DPIC ; make')
+                        sh('./config --shared -fPIC -DPIC ; make')
                     } else {
-                        sh('./config ; make')
+                        sh('./config --shared ; make')
                     }
                 }
             `
