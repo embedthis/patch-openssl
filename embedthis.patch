@@ -5,7 +5,7 @@
  	@ ALLSYMSFLAGS='-all_load'; \
  	NOALLSYMSFLAGS=''; \
 -	SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -current_version $(SHLIBVERSION) -compatibility_version $(SHLIBVERSION) -install_name $(INSTALLTOP)/$(LIBDIR)/$(SHLIBNAME_FULL)"; \
-+   SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -current_version $(SHLIBVERSION) -compatibility_version $(SHLIBVERSION) -install_name @rpath/$$SHLIB$(SHLIB_EXT) -Wl,-rpath,@executable_path/ -Wl,-rpath,@loader_path/"; \
++   SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -current_version $(SHLIBVERSION) -compatibility_version $(SHLIBVERSION) -install_name @rpath/$(LIBNAME) -Wl,-rpath,@executable_path/ -Wl,-rpath,@loader_path/"; \
  	$(LINK_SO_SHLIB)
  link_app.darwin:	# is there run-path on darwin?
  	$(LINK_APP)
