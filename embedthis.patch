@@ -1,11 +1,11 @@
---- Makefile.shared.original	2014-01-07 10:06:24.000000000 -0800
-+++ Makefile.shared	2014-01-07 10:04:30.000000000 -0800
-@@ -250,7 +250,7 @@
- 	if [ -n "$$SHLIB_SOVER_NODOT" ]; then \
- 		SHAREDFLAGS="$$SHAREDFLAGS -compatibility_version $$SHLIB_SOVER_NODOT"; \
- 	fi; \
--	SHAREDFLAGS="$$SHAREDFLAGS -install_name $(INSTALLTOP)/$(LIBDIR)/$$SHLIB$(SHLIB_EXT)"; \
-+	SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -current_version $(SHLIBVERSION) -compatibility_version $(SHLIBVERSION) -       install_name @rpath/$$SHLIB$(SHLIB_EXT) -Wl,-rpath,@executable_path/ -Wl,-rpath,@loader_path/"; \
- 	$(LINK_SO_A)
+--- openssl.original/Makefile.shared	2018-03-28 00:50:37.000000000 +1100
++++ openssl/Makefile.shared	2018-04-12 10:56:44.000000000 +1000
+@@ -228,7 +228,7 @@
+ link_shlib.darwin:
+ 	@ ALLSYMSFLAGS='-all_load'; \
+ 	NOALLSYMSFLAGS=''; \
+-	SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -current_version $(SHLIBVERSION) -compatibility_version $(SHLIBVERSION) -install_name $(INSTALLTOP)/$(LIBDIR)/$(SHLIBNAME_FULL)"; \
++   SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -current_version $(SHLIBVERSION) -compatibility_version $(SHLIBVERSION) -       install_name @rpath/$$SHLIB$(SHLIB_EXT) -Wl,-rpath,@executable_path/ -Wl,-rpath,@loader_path/"; \
+ 	$(LINK_SO_SHLIB)
  link_app.darwin:	# is there run-path on darwin?
  	$(LINK_APP)
