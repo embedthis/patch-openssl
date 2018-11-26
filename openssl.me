@@ -7,10 +7,6 @@ Me.load({
         'pak-postcache': {
             goals: [ 'ejs-build', 'pak-build' ],
             action: `
-                trace('Patch', 'Apply patches')
-                for each (f in Path('.').files('*.patch')) {
-                    sh('patch < ' + f)
-                }
                 trace('Build', 'Openssl libraries')
                 if (Config.OS == 'windows') {
                     function cmd(command) {
@@ -25,6 +21,10 @@ Me.load({
                         script = 'ms/do_ms.bat'
                     }
                     cmd('perl Configure ' + config)
+                    trace('Patch', 'Apply patches')
+                    for each (f in Path('.').files('*.patch')) {
+                        sh('patch < ' + f)
+                    }
                     cmd(script)
                     cmd('nmake -f ms/nt.mak')
                     // cmd('nmake -f ms/ntdll.mak')
@@ -33,13 +33,18 @@ Me.load({
                     sh('chmod +x Configure config; touch Makefile')
                     if (Config.OS == 'macosx') {
                         /* Dont use -j4 - fails. Use debug-darwin-x86-64-cc for a debug build */
-                        sh('./Configure --shared darwin64-x86_64-cc; make')
+                        sh('./Configure --shared darwin64-x86_64-cc')
                     } else if (Config.OS == 'linux' && Config.CPU == 'x64') {
                         /* Archive libraries must still be position independant */
-                        sh('./config --shared -fPIC -DPIC ; make')
+                        sh('./config --shared -fPIC -DPIC')
                     } else {
-                        sh('./config --shared ; make')
+                        sh('./config --shared')
                     }
+                    trace('Patch', 'Apply patches')
+                    for each (f in Path('.').files('*.patch')) {
+                        sh('patch < ' + f)
+                    }
+                    sh('make')
                 }
             `
         }
