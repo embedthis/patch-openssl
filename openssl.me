@@ -20,7 +20,7 @@ Me.load({
                         config = 'VC-WIN32'
                         script = 'ms/do_ms.bat'
                     }
-                    cmd('perl Configure ' + config)
+                    cmd('perl Configure no-asm ' + config)
                     if (Path(script).exists) {
                         cmd(script)
                         cmd('nmake -f ms/nt.mak')
