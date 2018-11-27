@@ -6,6 +6,16 @@ REM
 SET PATH=\perl64\bin;\perl\bin;%PATH%
 
 if DEFINED VSINSTALLDIR GOTO :done
+
+for /l %%v in (2017, 1, 2025) do (
+    set VS=%%v
+    IF EXIST  "%PROGRAMFILES(x86)%\Microsoft Visual Studio\%%v\Community\VC\Auxiliary\Build\vcvarsall.bat" call              "%PROGRAMFILES(x86)%\Microsoft Visual Studio\%%v\Community\VC\Auxiliary\Build\vcvarsall.bat" %1
+    IF EXIST  "%PROGRAMFILES(x86)%\Microsoft Visual Studio\%%v\Community\VC\Auxiliary\Build\vcvarsall.bat" goto :done
+    IF EXIST "%PROGRAMFILES%\Microsoft Visual Studio\%%v\Community\VC\Auxiliary\Build\vcvarsall.bat" call                    "%PROGRAMFILES(x86)%\Microsoft Visual Studio\%%v\Community\VC\Auxiliary\Build\vcvarsall.bat" %1
+    IF EXIST "%PROGRAMFILES%\Microsoft Visual Studio\%%v\Community\VC\Auxiliary\Build\vcvarsall.bat" goto :done
+)
+
+if DEFINED VSINSTALLDIR GOTO :done
 for /l %%v in (14, -1, 9) do (
     set VS=%%v
     IF EXIST "%PROGRAMFILES(x86)%\Microsoft Visual Studio %%v.0\VC\vcvarsall.bat" call "%PROGRAMFILES(x86)%\Microsoft Visual Studio %%v.0\VC\vcvarsall.bat" %1
