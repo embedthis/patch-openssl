@@ -21,8 +21,12 @@ Me.load({
                         script = 'ms/do_ms.bat'
                     }
                     cmd('perl Configure ' + config)
-                    cmd(script)
-                    cmd('nmake -f ms/nt.mak')
+                    if (Path(script).exists) {
+                        cmd(script)
+                        cmd('nmake -f ms/nt.mak')
+                    } else {
+                        cmd('nmake')
+                    }
 
                 } else {
                     sh('chmod +x Configure config; touch Makefile')
