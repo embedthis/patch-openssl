@@ -25,6 +25,7 @@ Me.load({
                         cmd(script)
                         cmd('nmake -f ms/nt.mak')
                     } else {
+                        /* Openssl 1.1 generates a stand-alone Makefile */
                         cmd('nmake')
                     }
 
